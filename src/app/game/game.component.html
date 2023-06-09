@@ -1,13 +1,21 @@
+<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 100)}" [name]="player"  class="player-position" style="top:200px"></app-player>
+
 <div class="playground">
     <div class="card-stack">
         <img *ngFor="let c of [0, 1, 2, 3, 4]; let i = index;" [ngStyle]="{'right.px': i * 5}"
-         src="./../../assets/img/cards/card_cover.png" alt="card-cover">
+         src="./../../assets/img/card_cover.png" alt="card-cover">
 
          <img  class="top-card" [ngStyle]="{'right.px': 25}"
-         (click)="pickCard()" src="./../../assets/img/cards/card_cover.png" alt="card-cover">
+         (click)="pickCard()" src="./../../assets/img/card_cover.png" alt="card-cover">
+
+         <img *ngFor="let card of this.game.playedCards" class="played-card" src="./../../assets/img/cards/{{ card }}.png" alt="played cards">
+         
 
          <img *ngIf="pickedCard" class="pick-top-card" [ngStyle]="{'right.px': 25}"
-         (click)="pickCard()" src="./../../assets/img/cards/diamonds_1.png" alt="card-cover">
-         
+         (click)="pickCard()" src="./../../assets/img/cards/{{ currentCard }}.png" alt="card-cover">
     </div>
 </div>
+
+<button mat-fab color="primary" class="btn-add">
+    <mat-icon>add</mat-icon>
+  </button>

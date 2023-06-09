@@ -7,7 +7,8 @@ import { Game } from 'src/modules/game';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickedCard = false;
+  pickedCard: boolean = false;
+  currentCard: string = '';
   game !: Game;
 
   constructor() {
@@ -24,8 +25,17 @@ export class GameComponent implements OnInit {
   }
 
   pickCard() {
-    this.pickedCard = true;
+    if (!this.pickedCard) {
+      this.currentCard = this.game.stack.pop();
+      console.log(this.currentCard);
+      this.pickedCard = true;
+      
 
+      setTimeout(() => {
+        this.game.playedCards.push(this.currentCard);
+        this.pickedCard = false;
+      }, 1250);
+    }
   }
 
 }
