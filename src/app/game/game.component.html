@@ -1,0 +1,13 @@
+<div class="playground">
+    <div class="card-stack">
+        <img *ngFor="let c of [0, 1, 2, 3, 4]; let i = index;" [ngStyle]="{'right.px': i * 5}"
+         src="./../../assets/img/cards/card_cover.png" alt="card-cover">
+
+         <img  class="top-card" [ngStyle]="{'right.px': 25}"
+         (click)="pickCard()" src="./../../assets/img/cards/card_cover.png" alt="card-cover">
+
+         <img *ngIf="pickedCard" class="pick-top-card" [ngStyle]="{'right.px': 25}"
+         (click)="pickCard()" src="./../../assets/img/cards/diamonds_1.png" alt="card-cover">
+         
+    </div>
+</div>

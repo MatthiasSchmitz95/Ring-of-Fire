@@ -16,24 +16,28 @@
 .card-container{
     display: flex;
     flex-direction: column;
-    margin-top: 200px;
+    margin-top: 17px;
     z-index: 1;
 }
 
 .cards-right{
     rotate: 45deg;
-    margin-left: -50px;
+    margin-left: -38px;
 }
 
 .cards-left{
     rotate: -45deg;
-    margin-right: -50px;
+    margin-right: -38px;
+}
+
+.card-covering{
+    margin-top: -68px;
 }
 
 .title-box{
-    width: 40%;
+    width: 30%;
     background-color: rgb(87, 23, 23);
-    border: 20px solid #ffea00;
+    border: 14px solid #C78C00;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -45,4 +49,23 @@
         font-size: 50px;
     }
 
+}
+
+.start-label-box{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 390px;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    
+    img{
+        width: 40vw;
+    }
+
+    &:hover{
+        filter: brightness(1.25);
+        cursor: pointer;
+    }
 }
