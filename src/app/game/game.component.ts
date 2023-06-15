@@ -32,13 +32,17 @@ export class GameComponent implements OnInit {
       this.currentCard = this.game.stack.pop();
       console.log(this.currentCard);
       this.pickedCard = true;
-
-
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      console.log(this.game.currentPlayer);
       setTimeout(() => {
         this.game.playedCards.push(this.currentCard);
         this.pickedCard = false;
       }, 1250);
+
+
     }
+
   }
 
 
@@ -48,8 +52,12 @@ export class GameComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(name => {
-      console.log('The dialog was closed');
-      this.game.players.push(name);
+      if (name && name.length >0) {
+        console.log('The dialog was closed');
+        this.game.players.push(name);
+        
+      }
+
     });
   }
 }

@@ -7,12 +7,14 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
 import { GameComponent } from './game/game.component';
 import { PlayerComponent } from './player/player.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { AddPlayerComponent } from './add-player/add-player.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { GameDialogComponent } from './game-dialog/game-dialog.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -21,9 +23,11 @@ import { FormsModule } from '@angular/forms';
     StartScreenComponent,
     GameComponent,
     PlayerComponent,
-    AddPlayerComponent
+    AddPlayerComponent,
+    GameDialogComponent
   ],
   imports: [
+    MatCardModule,
     FormsModule,
     MatInputModule,
     MatDialogModule,

@@ -1,0 +1,13 @@
+.game-dialog{
+    position: absolute;
+    bottom: 32px;
+    left: 100px;
+    right: 100px;
+    display: flex;
+    justify-content: start;
+}
+
+.mat-mdc-card-title, .mat-mdc-card-subtitle {
+    display: block;
+    margin-left: 16px;
+}
