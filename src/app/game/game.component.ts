@@ -28,7 +28,8 @@ export class GameComponent implements OnInit {
   }
 
   pickCard() {
-    if (!this.pickedCard) {
+    if ( this.game.players.length != 0) {
+      if(!this.pickedCard){
       this.currentCard = this.game.stack.pop();
       console.log(this.currentCard);
       this.pickedCard = true;
@@ -40,7 +41,10 @@ export class GameComponent implements OnInit {
         this.pickedCard = false;
       }, 1250);
 
-
+    }}
+    else{
+      alert("please enter a Plyer to play the Game");
+        
     }
 
   }
