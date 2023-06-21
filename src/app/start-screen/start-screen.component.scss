@@ -46,7 +46,11 @@
     z-index: 2;
 
     h1{
+        margin-top: 100px;
+        margin: 50px;
+        width: 100%;
         font-size: 50px;
+        line-height: 78px;
     }
 
 }
@@ -61,11 +65,20 @@
     z-index: 3;
     
     img{
-        width: 40vw;
+        width: 50vw;
     }
 
     &:hover{
         filter: brightness(1.25);
         cursor: pointer;
+    }
+}
+
+@media(max-width:800px){
+    .start-label-box{
+        img{
+            width: 80vw;
+            
+        }
     }
 }
