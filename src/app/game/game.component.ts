@@ -5,6 +5,7 @@ import { AddPlayerComponent } from '../add-player/add-player.component';
 import { Firestore, collection, collectionData, addDoc, getDoc, doc, getFirestore, onSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 
 
@@ -17,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class GameComponent implements OnInit {
-  firestore: Firestore = inject(Firestore);
+  fire: Firestore = inject(Firestore);
   games: Observable<any[]>;
 
 
@@ -26,8 +27,8 @@ export class GameComponent implements OnInit {
   game !: Game;
 
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog) {
-    const aCollection = collection(this.firestore, 'games');
+  constructor(private route: ActivatedRoute, public dialog: MatDialog,public firestore: AngularFirestore) {
+    const aCollection = collection(this.fire, 'games');
     this.games = collectionData(aCollection);
 
 
@@ -44,7 +45,7 @@ export class GameComponent implements OnInit {
       console.log('params', params);
       this.firestore
       .collection('games')
-      .valueChange()
+      .valueChanges()
       .subscribe((game) =>{
         console.log(game)
 
