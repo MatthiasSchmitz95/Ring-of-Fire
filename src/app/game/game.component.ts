@@ -2,12 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/modules/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
-import { Firestore, collection, collectionData, addDoc, getDoc, doc, getFirestore, onSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-
-
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 
 
@@ -18,21 +15,14 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 })
 
 export class GameComponent implements OnInit {
-  fire: Firestore = inject(Firestore);
+  gamesCollection: AngularFirestoreCollection<any>;
   games: Observable<any[]>;
 
-
-  pickedCard: boolean = false;
-  currentCard: string = '';
+  gameId: string;
   game !: Game;
 
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog,public firestore: AngularFirestore) {
-    const aCollection = collection(this.fire, 'games');
-    this.games = collectionData(aCollection);
-
-
-
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, public firestore: AngularFirestore) {
 
 
   }
@@ -41,47 +31,59 @@ export class GameComponent implements OnInit {
     this.newGame();
     console.log(this.game);
 
-    this.route.params.subscribe(async(params) => {
+    this.route.params.subscribe(async (params) => {
+      this.gameId = params['id'];
       console.log('params', params);
       this.firestore
+        .collection('games')
+        .doc(this.gameId)
+        .valueChanges()
+        .subscribe((game: any) => {
+          console.log(game);
+          this.game.players = game.players;
+          this.game.currentPlayer = game.currentPlayer;
+          this.game.stack = game.stack;
+          this.game.playedCards = game.playedCards;
+          this.game.pickedCard = game.pickedCard;
+          this.game.currentCard = game.currentCard;
+
+        });
+
+    });
+
+  }
+
+  saveGame() {
+    this.firestore
       .collection('games')
-      .doc(params['id'])
-      .valueChanges()
-      .subscribe((game) =>{
-        console.log(game)
-
-      });
-
-
-
-    }
-   );
-
+      .doc(this.gameId)
+      .update(this.game.toJson())
   }
 
   newGame() {
     this.game = new Game();
-     //addDoc(collection(this.firestore, 'games'), this.game.toJson());
   }
 
   pickCard() {
     if (this.game.players.length != 0) {
-      if (!this.pickedCard) {
-        this.currentCard = this.game.stack.pop();
-        console.log(this.currentCard);
-        this.pickedCard = true;
+      if (!this.game.pickedCard) {
+        this.game.currentCard = this.game.stack.pop();
+        this.saveGame();
+        console.log(this.game.currentCard);
+        this.game.pickedCard = true;
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
         console.log(this.game.currentPlayer);
         setTimeout(() => {
-          this.game.playedCards.push(this.currentCard);
-          this.pickedCard = false;
+          this.game.playedCards.push(this.game.currentCard);
+          this.saveGame();
+          this.game.pickedCard = false;
         }, 1250);
 
       }
     }
     else {
-      alert("please enter a Plyer to play the Game");
+      alert("please enter atleast 2 players to play the Game");
 
     }
 
@@ -97,6 +99,7 @@ export class GameComponent implements OnInit {
       if (name && name.length > 0) {
         console.log('The dialog was closed');
         this.game.players.push(name);
+        this.saveGame();
 
       }
 
