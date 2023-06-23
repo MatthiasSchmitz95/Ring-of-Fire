@@ -45,6 +45,7 @@ export class GameComponent implements OnInit {
       console.log('params', params);
       this.firestore
       .collection('games')
+      .doc(params['id'])
       .valueChanges()
       .subscribe((game) =>{
         console.log(game)
