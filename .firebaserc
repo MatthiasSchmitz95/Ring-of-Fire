@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "ring-of-fire-ae2ea": {
-      "hosting": {
-        "ringoffire": [
-          "ring-of-fire-ae2ea"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "ring-of-fire-ae2ea"
   }

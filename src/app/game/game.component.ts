@@ -65,29 +65,29 @@ export class GameComponent implements OnInit {
   }
 
   pickCard() {
-    if (this.game.players.length != 0) {
+    if (this.game.players.length >1) {
       if (!this.game.pickedCard) {
         this.game.currentCard = this.game.stack.pop();
-        this.saveGame();
         console.log(this.game.currentCard);
         this.game.pickedCard = true;
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
         console.log(this.game.currentPlayer);
+        this.saveGame();
         setTimeout(() => {
           this.game.playedCards.push(this.game.currentCard);
-          this.saveGame();
           this.game.pickedCard = false;
+          this.saveGame();
         }, 1250);
-
+  
       }
-    }
-    else {
-      alert("please enter atleast 2 players to play the Game");
+    
 
-    }
 
-  }
+  }    else {
+    alert("please enter atleast 2 players to play the Game");
+
+}}
 
 
   openDialog(): void {
